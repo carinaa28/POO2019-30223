@@ -1,104 +1,44 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
 public class GUI {
+
+	static char currentPlayer = 'X';
+	static JFrame mainFrame = new JFrame("X si O");
+	static JPanel controlPanel = new JPanel();
+	static MyTable table = new MyTable(3, 3);
+	static Border border = BorderFactory.createLineBorder(Color.GRAY, 2);
+	static JButton newGameButton = new JButton("NEW GAME");
 	
-	public char currentPlayer='X';
 
 	public static void main(String[] args) {
-		JFrame mainFrame = new JFrame("");
-		mainFrame.setSize(400, 500);
-
-		JLabel statusLabel = new JLabel("X SI 0");
-		
-		JPanel controlPanel = new JPanel();
+	
+		mainFrame.setSize(360, 500);
+		mainFrame.setBackground(Color.white);
+	
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.PAGE_AXIS));
-			
-		JTable table= new MyTable(3,3);
-		table.setRowHeight(100);
+		controlPanel.setBackground(Color.white);
+		
+		table.setRowHeight(120);
 		table.setRowSelectionAllowed(false);
-		
-		
-		class TableActionListener implements MouseListener {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int row = table.getSelectedRow();
-				int column = table.getSelectedColumn();
-				
-				if (table.isCellEditable(row,column))
-				{table.setValueAt(Player.makeMove(), row, column);
-			
-				
-				}
-			
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				
-			}
-
-		}
-		
-		
+		table.setFont(new Font("Serif", Font.ROMAN_BASELINE, 153));
+		table.setBorder(border);		
 		table.addMouseListener(new TableActionListener());
 		
-		
-	
-		
-		JButton b1 = new JButton("NEW GAME");
-		class MyActionListener implements ActionListener {
-			public void actionPerformed(ActionEvent e) {
-		//	table.reset();
-				table.setValueAt(null, 0, 0);
-				table.setValueAt(null, 0, 1);
-				table.setValueAt(null, 0, 2);
-				table.setValueAt(null, 1, 0);
-				table.setValueAt(null, 1, 1);
-				table.setValueAt(null, 1, 2);
-				table.setValueAt(null, 2, 0);
-				table.setValueAt(null, 2, 1);
-				table.setValueAt(null, 2, 2);
-				
-			}	
-		}
-		
-		
-		b1.addActionListener(new MyActionListener());	
-		
+		newGameButton.addActionListener(new NewGameActionListener());
+
 		mainFrame.add(controlPanel);
-		controlPanel.add(Box.createRigidArea(new Dimension(0,5)));
-		controlPanel.add(statusLabel);
-		controlPanel.add(Box.createRigidArea(new Dimension(0,30)));
+		controlPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		controlPanel.add(table);
-		controlPanel.add(Box.createRigidArea(new Dimension(0,40)));
-		controlPanel.add(b1);
-	
-		
+		controlPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+		controlPanel.add(newGameButton);
+
 		mainFrame.setVisible(true);
-	
-	
+
 	}
 
 }
