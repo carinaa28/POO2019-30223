@@ -2,10 +2,6 @@ public abstract class Animal {
 	private Integer nrOfLegs;
 	private String name;
 
-	public static void main(String[] args) {
-
-	}
-
 	public Integer getNrOfLegs() {
 		return nrOfLegs;
 	}
